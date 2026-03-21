@@ -3,10 +3,245 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+  <title>Travel &amp; School Calendar · Apr 2026 – Jan 2027</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f4f8; color: #1a202c; min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, #2a4a7f 100%);
+      color: white; padding: 2rem 2rem 1.5rem; text-align: center;
+    }
+    header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p { margin-top: 0.4rem; opacity: 0.8; font-size: 0.95rem; }
+    .legend {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;
+      padding: 1rem 1.5rem; background: white; border-bottom: 1px solid #e2e8f0;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 500; color: #4a5568; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .summary {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem; padding: 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .card { background: white; border-radius: 12px; padding: 1.2rem 1.4rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .card h3 { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #718096; margin-bottom: 0.8rem; }
+    .card ul { list-style: none; }
+    .card li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.35rem 0; font-size: 0.85rem; border-bottom: 1px solid #f7fafc; line-height: 1.4; }
+    .card li:last-child { border-bottom: none; }
+    .card li .dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; margin-top: 4px; }
+    .card li strong { font-weight: 600; }
+    .calendar-section { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
+    .calendar-section h2 { font-size: 1rem; font-weight: 700; color: #2d3748; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .months-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .month-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .month-title { font-size: 1rem; font-weight: 700; color: #2d3748; margin-bottom: 0.8rem; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .cal-header { text-align: center; font-size: 0.65rem; font-weight: 700; color: #a0aec0; padding: 4px 0; text-transform: uppercase; }
+    .cal-day { text-align: center; font-size: 0.75rem; padding: 5px 2px; border-radius: 4px; min-height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+    .cal-day.empty { background: transparent; }
+    .type-trip       { background: #f6ad55; color: #7b341e; }
+    .type-conference { background: #b794f4; color: #44337a; }
+    .type-school     { background: #68d391; color: #1c4532; }
+    .type-recess     { background: #76e4f7; color: #065666; }
+    .type-vivi       { background: #faf089; color: #744210; }
+    .type-holiday    { background: #fc8181; color: #63171b; }
+    .type-weekend    { background: #edf2f7; color: #718096; }
+    .type-normal     { color: #2d3748; }
+    .month-notes { margin-top: 0.8rem; font-size: 0.75rem; color: #4a5568; line-height: 1.5; border-top: 1px solid #f0f4f8; padding-top: 0.6rem; }
+    .month-notes span { display: inline-block; margin-right: 0.4rem; margin-bottom: 0.3rem; padding: 2px 7px; border-radius: 10px; font-size: 0.7rem; font-weight: 500; }
+    footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #a0aec0; border-top: 1px solid #e2e8f0; background: white; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.3rem; }
+      .summary { padding: 1rem; }
+      .calendar-section { padding: 0 1rem 2rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World!</h1>
-  <p>My first Netlify page.</p>
+
+<header>
+  <h1>&#9992;&#65039; Travel &amp; School Calendar</h1>
+  <p>Apr 2026 &ndash; Jan 2027 &nbsp;&middot;&nbsp; Saratoga USD &nbsp;&middot;&nbsp; Personal Travel &amp; Company Days</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#f6ad55"></div>Trip / Travel</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b794f4"></div>Conference</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#68d391"></div>School in Session</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#76e4f7"></div>School Recess / No School</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#faf089"></div>Vivi Summer School</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#fc8181"></div>Holiday / Recharge / Day Off</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#edf2f7;border:1px solid #cbd5e0"></div>Weekend</div>
+</div>
+
+<div class="summary">
+  <div class="card">
+    <h3>&#9992;&#65039; Trips &amp; Commitments</h3>
+    <ul>
+      <li><div class="dot" style="background:#f6ad55"></div><div><strong>Yosemite &ndash; Firefall Ranch</strong><br>Apr 9&ndash;11 &middot; Confirmed</div></li>
+      <li><div class="dot" style="background:#f6ad55"></div><div><strong>Tahoe</strong><br>Jul 1&ndash;4</div></li>
+      <li><div class="dot" style="background:#f6ad55"></div><div><strong>Hawaii &ndash; Sheraton</strong><br>Jul 26&ndash;31</div></li>
+      <li><div class="dot" style="background:#f6ad55"></div><div><strong>Europe / Paris</strong><br>Sep 27 &ndash; Oct 10 &middot; Solo (school in session)</div></li>
+      <li><div class="dot" style="background:#b794f4"></div><div><strong>Istanbul Conference</strong><br>Oct 1&ndash;3 &middot; Anchor date</div></li>
+      <li><div class="dot" style="background:#f6ad55"></div><div><strong>Australia</strong><br>Dec 24 &ndash; Jan 1+ &middot; Winter Recess aligns!</div></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>&#127979; School Days</h3>
+    <ul>
+      <li><div class="dot" style="background:#76e4f7"></div><div><strong>Spring Recess</strong><br>Apr 6&ndash;10 (no school)</div></li>
+      <li><div class="dot" style="background:#68d391"></div><div><strong>School ends 2025&ndash;26</strong><br>Jun 5</div></li>
+      <li><div class="dot" style="background:#faf089"></div><div><strong>Vivi Summer School</strong><br>Jun 15 &ndash; Jul 10 (weekdays)</div></li>
+      <li><div class="dot" style="background:#68d391"></div><div><strong>School 2026&ndash;27 starts</strong><br>Aug 13 &ndash; Dec 18</div></li>
+      <li><div class="dot" style="background:#76e4f7"></div><div><strong>Teacher Work Day</strong><br>Nov 6 (no school)</div></li>
+      <li><div class="dot" style="background:#76e4f7"></div><div><strong>Thanksgiving Recess</strong><br>Nov 23&ndash;27</div></li>
+      <li><div class="dot" style="background:#76e4f7"></div><div><strong>Winter Recess</strong><br>Dec 21 &ndash; Jan 1</div></li>
+      <li><div class="dot" style="background:#68d391"></div><div><strong>School Resumes</strong><br>Jan 4, 2027</div></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>&#127970; Company + Federal Days Off</h3>
+    <ul>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>May 22</strong> &ndash; Recharge</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>May 25</strong> &ndash; Memorial Day</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Jul 1</strong> &ndash; Jul 4th (company)</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Jul 2</strong> &ndash; Jul 4th observed (company)</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Jul 3</strong> &ndash; Recharge</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Aug 14</strong> &ndash; Recharge</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Sep 7</strong> &ndash; Labor Day</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Nov 6</strong> &ndash; Recharge (Teacher Work Day)</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Nov 25</strong> &ndash; Day before Thanksgiving</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Nov 26</strong> &ndash; Thanksgiving</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Nov 27</strong> &ndash; Recharge</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Dec 24</strong> &ndash; Day before Christmas</div></li>
+      <li><div class="dot" style="background:#fc8181"></div><div><strong>Dec 25&ndash;31</strong> &ndash; Christmas + Shutdown</div></li>
+    </ul>
+  </div>
+</div>
+
+<div class="calendar-section">
+  <h2>Monthly View</h2>
+  <div class="months-grid" id="months"></div>
+</div>
+
+<footer>
+  Apr 2026 &ndash; Jan 2027 &nbsp;&middot;&nbsp; Saratoga USD &nbsp;&middot;&nbsp; Personal Travel &amp; Company Days
+</footer>
+
+<script>
+  const dayTypes = {};
+  const P = { trip:6, conference:5, holiday:4, vivi:3, recess:2, school:1 };
+
+  function set(year, month, start, end, type) {
+    for (let d = start; d <= end; d++) {
+      const k = year+'-'+month+'-'+d;
+      if (!dayTypes[k] || P[type] > (P[dayTypes[k]]||0)) dayTypes[k] = type;
+    }
+  }
+
+  // April 2026
+  set(2026,4,1,5,'school'); set(2026,4,13,30,'school');
+  set(2026,4,6,10,'recess');
+  set(2026,4,9,11,'trip');
+
+  // May 2026
+  set(2026,5,1,31,'school');
+  set(2026,5,22,22,'holiday'); set(2026,5,25,25,'holiday');
+
+  // June 2026
+  set(2026,6,1,5,'school'); set(2026,6,6,14,'recess');
+  set(2026,6,15,30,'vivi');
+
+  // July 2026
+  set(2026,7,1,10,'vivi'); set(2026,7,11,31,'recess');
+  set(2026,7,1,1,'holiday'); set(2026,7,2,2,'holiday'); set(2026,7,3,3,'holiday');
+  set(2026,7,1,4,'trip'); set(2026,7,26,31,'trip');
+
+  // August 2026
+  set(2026,8,1,12,'recess'); set(2026,8,13,31,'school');
+  set(2026,8,14,14,'holiday');
+
+  // September 2026
+  set(2026,9,1,30,'school'); set(2026,9,7,7,'holiday');
+  set(2026,9,27,30,'trip');
+
+  // October 2026
+  set(2026,10,1,31,'school'); set(2026,10,1,10,'trip');
+  set(2026,10,1,3,'conference');
+
+  // November 2026
+  set(2026,11,1,30,'school'); set(2026,11,6,6,'holiday');
+  set(2026,11,23,27,'recess');
+  set(2026,11,25,25,'holiday'); set(2026,11,26,26,'holiday'); set(2026,11,27,27,'holiday');
+
+  // December 2026
+  set(2026,12,1,18,'school'); set(2026,12,19,31,'recess');
+  set(2026,12,24,24,'holiday'); set(2026,12,25,31,'holiday');
+  set(2026,12,24,31,'trip');
+
+  // January 2027
+  set(2027,1,1,3,'trip'); set(2027,1,1,1,'holiday');
+  set(2027,1,4,31,'school');
+
+  const typeClass = { trip:'type-trip', conference:'type-conference', school:'type-school', recess:'type-recess', vivi:'type-vivi', holiday:'type-holiday' };
+
+  const months = [
+    {year:2026,month:4,name:'April 2026'},
+    {year:2026,month:5,name:'May 2026'},
+    {year:2026,month:6,name:'June 2026'},
+    {year:2026,month:7,name:'July 2026'},
+    {year:2026,month:8,name:'August 2026'},
+    {year:2026,month:9,name:'September 2026'},
+    {year:2026,month:10,name:'October 2026'},
+    {year:2026,month:11,name:'November 2026'},
+    {year:2026,month:12,name:'December 2026'},
+    {year:2027,month:1,name:'January 2027'},
+  ];
+
+  const notes = {
+    '2026-4':  [['Yosemite Apr 9-11','#f6ad55'],['Spring Recess Apr 6-10','#76e4f7']],
+    '2026-5':  [['School in session','#68d391'],['Memorial Day May 25','#fc8181'],['Recharge May 22','#fc8181']],
+    '2026-6':  [['School ends Jun 5','#68d391'],['Vivi Summer School Jun 15-Jul 10','#faf089']],
+    '2026-7':  [['Tahoe Jul 1-4','#f6ad55'],['Hawaii Jul 26-31','#f6ad55'],['Jul 4th holidays','#fc8181']],
+    '2026-8':  [['School starts Aug 13','#68d391'],['Recharge Aug 14','#fc8181']],
+    '2026-9':  [['Labor Day Sep 7','#fc8181'],['Europe Sep 27 - Oct 10','#f6ad55']],
+    '2026-10': [['Europe through Oct 10','#f6ad55'],['Istanbul Conference Oct 1-3','#b794f4']],
+    '2026-11': [['Recharge Nov 6','#fc8181'],['Thanksgiving Recess Nov 23-27','#76e4f7']],
+    '2026-12': [['School ends Dec 18','#68d391'],['Australia Dec 24 - Jan 1','#f6ad55'],['Christmas Shutdown Dec 25-31','#fc8181']],
+    '2027-1':  [['Australia through Jan 1','#f6ad55'],["New Year's Jan 1",'#fc8181'],['School resumes Jan 4','#68d391']],
+  };
+
+  const container = document.getElementById('months');
+  months.forEach(({year, month, name}) => {
+    const firstDay = new Date(year, month-1, 1).getDay();
+    const offset = (firstDay + 6) % 7;
+    const days = new Date(year, month, 0).getDate();
+    let html = '<div class="month-card"><div class="month-title">'+name+'</div><div class="cal-grid">';
+    ['Mo','Tu','We','Th','Fr','Sa','Su'].forEach(d => { html += '<div class="cal-header">'+d+'</div>'; });
+    for (let i=0; i<offset; i++) html += '<div class="cal-day empty"></div>';
+    for (let d=1; d<=days; d++) {
+      const k = year+'-'+month+'-'+d;
+      const dow = new Date(year, month-1, d).getDay();
+      const isWE = dow===0||dow===6;
+      const t = dayTypes[k];
+      const cls = 'cal-day ' + (t ? typeClass[t] : isWE ? 'type-weekend' : 'type-normal');
+      html += '<div class="'+cls+'">'+d+'</div>';
+    }
+    html += '</div>';
+    const mn = notes[year+'-'+month];
+    if (mn) {
+      html += '<div class="month-notes">';
+      mn.forEach(([label, color]) => {
+        html += '<span style="background:'+color+'25;color:#2d3748;border:1px solid '+color+'90">'+label+'</span>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+    container.innerHTML += html;
+  });
+</script>
 </body>
 </html>
