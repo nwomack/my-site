@@ -58,9 +58,42 @@
       .summary { padding: 1rem; }
       .calendar-section { padding: 0 1rem 2rem; }
     }
+  
+  <style>
+    #gate{position:fixed;inset:0;z-index:9999;background:#f0f4f8;display:flex;align-items:center;justify-content:center}
+    #gate-box{background:white;border-radius:16px;padding:2.5rem 2rem;width:320px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+    #gate-box h2{font-size:1.1rem;font-weight:700;color:#1a365d;margin-bottom:.4rem}
+    #gate-box p{font-size:.85rem;color:#718096;margin-bottom:1.5rem}
+    #gate-input{width:100%;padding:.65rem 1rem;font-size:1rem;border:2px solid #e2e8f0;border-radius:8px;outline:none;text-align:center;letter-spacing:.1em;transition:border-color .15s}
+    #gate-input:focus{border-color:#2a4a7f}
+  </style>
+    #gate-btn{margin-top:.9rem;width:100%;padding:.65rem;background:linear-gradient(135deg,#1a365d,#2a4a7f);color:#fff;font-size:.95rem;font-weight:600;border:none;border-radius:8px;cursor:pointer}
+    #gate-btn:hover{opacity:.9}
+    #gate-err{margin-top:.6rem;font-size:.8rem;color:#e53e3e;min-height:1em}
+    #gate-input.shake{animation:sh .3s}
+    @keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
   </style>
 </head>
 <body>
+<div id="gate">
+  <div id="gate-box">
+    <h2>&#128274; Private Page</h2>
+    <p>Enter the password to continue.</p>
+    <input id="gate-input" type="password" placeholder="Password" autocomplete="current-password"/>
+    <button id="gate-btn">Unlock</button>
+    <div id="gate-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+var P="ncv4445",K="cal_unlocked";
+function u(){document.getElementById("gate").style.display="none";sessionStorage.setItem(K,"1")}
+if(sessionStorage.getItem(K)==="1"){u();return}function a(){var v=document.getElementById("gate-input").value;if(v===P){u()}else{var i=document.getElementById("gate-input");i.classList.add("shake");document.getElementById("gate-err").textContent="Incorrect password.";setTimeout(function(){i.classList.remove("shake")},400);i.value="";i.focus()}}
+document.getElementById("gate-btn").onclick=a;
+document.getElementById("gate-input").onkeydown=function(e){if(e.key==="Enter")a()};
+document.getElementById("gate-input").focus();
+})();
+</script>
 
 <header>
   <h1>&#9992;&#65039; Travel &amp; School Calendar</h1>
